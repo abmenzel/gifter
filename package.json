@@ -1,0 +1,29 @@
+{
+  "name": "gifter",
+  "version": "1.0.0",
+  "description": "A gift inspiration tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node scraper.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abmenzel/gifter.git"
+  },
+  "author": "Alexander Menzel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abmenzel/gifter/issues"
+  },
+  "homepage": "https://github.com/abmenzel/gifter#readme",
+  "dependencies": {
+    "@types/node": "^17.0.10",
+    "axios": "^0.25.0",
+    "cheerio": "^1.0.0-rc.10",
+    "ts-node": "^10.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
