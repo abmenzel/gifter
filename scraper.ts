@@ -1,12 +1,16 @@
 import axios from 'axios'
 import cheerio from 'cheerio'
+import Product from './interfaces/IProduct'
+import fs from 'fs'
 
 const BASE_URL = 'https://www.pricerunner.dk'
 const SOURCE_URL = 'https://www.pricerunner.dk/cl/1220/Basketball?attr_50046654=59332329'
 const SELECTORS = {
     PRODUCT_URL: '.SXMk5Voq8q a',
     PRODUCT_TITLE: 'h1',
-    PRODUCT_PRICE: '[property="product:price"]'
+    PRODUCT_PRICE: '[property="product:price"]',
+    PRODUCT_CATEGORIES: '[itemprop="itemListElement"] span',
+    PRODUCT_IMAGE: '.J_wqfv6jRA[itemprop="image"]'
 }
 
 const initScraper = async () => {
@@ -15,6 +19,7 @@ const initScraper = async () => {
     for(let i = 0; i < product_urls.length; i++) {
         const product = await getProductDetails(product_urls[i])
         console.log(product)
+        saveToFile('./data/products.json', product)
         await sleep(300)
     }
 }
@@ -33,15 +38,22 @@ const getProductUrls = (content: string) => {
 const getProductDetails = async (product_url: string) => {
     const content = await fetchContent(`${BASE_URL}${product_url}`)
     const $ = cheerio.load(content)
-    const product = {
-        handle: '',
-        title: '',
-        price: 0
+
+    const product: Product = {
+        handle: handleize($(SELECTORS.PRODUCT_TITLE).text()),
+        title: $(SELECTORS.PRODUCT_TITLE).text(),
+        price: parseNumber($(SELECTORS.PRODUCT_PRICE).attr('content') as string),
+        categories: $(SELECTORS.PRODUCT_CATEGORIES).map((_, el) => $(el).text()).get(),
+        url: `${BASE_URL}${product_url}`,
+        image_url: $(SELECTORS.PRODUCT_IMAGE).attr('src') as string
     }
-    product.title = $(SELECTORS.PRODUCT_TITLE).text()
-    product.handle = handleize(product.title)
-    product.price = parseNumber($(SELECTORS.PRODUCT_PRICE).attr('content') as string)
     return product
+}
+
+const saveToFile = (path: string, data: any) => {
+    fs.writeFile(path, JSON.stringify(data), { flag: 'a+'}, (err: any) => {
+        if(err) console.log(err)
+    })
 }
 
 const parseNumber = (number:string): number => {
