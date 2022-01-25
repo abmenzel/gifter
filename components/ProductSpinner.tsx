@@ -1,5 +1,7 @@
 import { Transition } from '@headlessui/react'
 import { useEffect, useState } from 'react'
+import IconBack from '../icons/IconBack'
+import IconFilter from '../icons/IconFilter'
 import IFilter from '../interfaces/IFilter'
 import Product from '../interfaces/IProduct'
 import { serialize } from '../utils/query'
@@ -33,7 +35,7 @@ const ProductSpinner = (props: any) => {
 		const products = await response.json()
 		setProducts((prev) => {
 			if (prev.length != 0) setProductsStack((stack) => [...stack, prev])
-			return (products)
+			return products
 		})
 	}
 
@@ -64,19 +66,43 @@ const ProductSpinner = (props: any) => {
 
 	return (
 		<div>
-			<Filter open={filterOpen} setOpen={setFilterOpen} range={range} setRange={setRange} />
-			<div className={`flex flex-col h-full justify-between ${props.className}`}>
+			<Filter
+				open={filterOpen}
+				setOpen={setFilterOpen}
+				range={range}
+				setRange={setRange}
+			/>
+			<div
+				className={`flex flex-col h-full justify-between ${props.className}`}>
 				<div className='grid grid-cols-2'>
 					{products.map((product) => (
-							<ProductCard key={product.handle} product={product} />
+						<ProductCard key={product.handle} product={product} />
 					))}
 				</div>
-				<div className="p-4 fixed bottom-0 w-full grid grid-cols-8">
-					<div className="col-span-2 flex items-center justify-center">
-						{productsStack.length != 0 && <Button onClick={() => handleReturn()} innerClass="text-xs px-5 py-4" label="B" />}
+				<div className='p-4 fixed bottom-0 w-full grid grid-cols-8'>
+					<div className='col-span-2 flex items-center justify-center'>
+						{productsStack.length != 0 && (
+							<Button
+								onClick={() => handleReturn()}
+								className=''
+								innerClass='text-xs px-3 py-3'>
+								<IconBack className='h-5 w-5' />
+							</Button>
+						)}
 					</div>
-					<Button className="col-span-4 w-full" innerClass="bg-theme-body w-full" onClick={() => handleSearch()} label={`${spins === 0 ? 'Søg' : 'Nah, prøv igen'}`} />
-					<Button className="col-span-2 flex items-center justify-center" onClick={() => setFilterOpen(true)} innerClass="text-xs px-5 py-4" label="F"/>
+					<Button
+						className='col-span-4 w-full'
+						innerClass='bg-theme-body w-full'
+						onClick={() => handleSearch()}>
+						{spins === 0 ? 'Søg' : 'Nah, prøv igen'}
+					</Button>
+					<div className='col-span-2 flex items-center justify-center'>
+						<Button
+							onClick={() => setFilterOpen(true)}
+							innerClass='text-xs px-3 py-3'>
+							<IconFilter className='h-5 w-5' />
+						</Button>
+					</div>
 				</div>
 			</div>
 		</div>

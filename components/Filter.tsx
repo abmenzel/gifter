@@ -50,8 +50,7 @@ const Filter = ({
 								className='mt-12'
 								innerClass='bg-theme-body text-sm mx-auto'
 								onClick={() => setOpen(false)}
-								label='Lad os prøve det'
-							/>
+							>Lad os prøve det</Button>
 						</div>
 					</Transition.Child>
 				</div>

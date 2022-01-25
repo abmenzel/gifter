@@ -1,15 +1,15 @@
 import { useState } from 'react'
 
 const Button = ({
-	label,
 	onClick,
 	className,
     innerClass,
+	children
 }: {
-	label: string
 	className?: string
 	onClick?: any
-    innerClass?: string
+    innerClass?: string,
+	children?: any
 }) => {
 	const [tapped, setTapped] = useState(false)
 	return (
@@ -20,7 +20,7 @@ const Button = ({
 			<button
 				className={`scale-100 outline-none rounded-full px-8 py-4 bg-theme-primary font-bold text-white text-center block ${innerClass}`}
 				onClick={onClick}>
-				{label}
+				{children}
 			</button>
 		</div>
 	)
