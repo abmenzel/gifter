@@ -1,6 +1,6 @@
 import axios from 'axios'
 import cheerio from 'cheerio'
-import Product from './interfaces/IProduct'
+import Product from '../interfaces/IProduct'
 import fs from 'fs'
 
 const BASE_URL = 'https://www.pricerunner.dk'
@@ -13,11 +13,11 @@ const SELECTORS = {
     TOP_CATEGORY: '.ksIhNUfEHK',
     SECOND_CATEGORY: '.QDScX6Pol4 a, .GfTesIWUYX a'
 }
-const DATA_PATH = './data' 
-const PRODUCTS_PATH = './data/products.json'
-const PRODUCT_URLS_PATH = './data/product_urls.json'
-const PRODUCTS_SCRAPED_PATH = './data/products_scraped.json'
-const IMAGES_PATH = './data/images' 
+const DATA_PATH = './public/data' 
+const PRODUCTS_PATH = './public/data/products.json'
+const PRODUCT_URLS_PATH = './public/data/product_urls.json'
+const PRODUCTS_SCRAPED_PATH = './public/data/products_scraped.json'
+const IMAGES_PATH = './public/data/images' 
 
 /**
  * The scraper will go from the top category -> secondary category -> tertiary category -> product
@@ -52,24 +52,9 @@ const Scrape = async (initial_scrape: boolean = false, scrape_products: boolean 
                     console.error(error)
                 }
             }))
-            console.log(`Finished chunk ${i} out of ${chunks.length}`)
+            console.log(`Finished chunk ${i + 1} out of ${chunks.length}`)
         }
-        
-        /*for(let i = 0; i < rem_urls_array.length; i++) {
-            try {
-                //console.log(rem_urls_array[i])
-                const product = await getProductDetails(rem_urls_array[i])
-                if(!product) return
-                products_scraped.add(rem_urls_array[i])
-                remaining_urls.delete(rem_urls_array[i])
-                storeProduct(product)
-                await storeProductImage(product)
-            }catch(error){
-                console.error(rem_urls_array[i])
-                console.error(error)
-            }
-        }
-        fs.writeFileSync(PRODUCTS_SCRAPED_PATH, JSON.stringify(Array.from(products_scraped)))*/
+        fs.writeFileSync(PRODUCTS_SCRAPED_PATH, JSON.stringify(Array.from(products_scraped)))
     }
 }
 
