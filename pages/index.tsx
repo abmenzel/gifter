@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<header className='p-4 py-8'>
+			<header className='p-6 py-8'>
 				<h1 className='font-heading text-theme-body font-extrabold text-5xl'>Gifter</h1>
 				<p className='text-xl pt-2'>
 					Find inspiration til din næste gave

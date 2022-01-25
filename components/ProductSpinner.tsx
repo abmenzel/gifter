@@ -74,7 +74,7 @@ const ProductSpinner = (props: any) => {
 			/>
 			<div
 				className={`flex flex-col h-full justify-between ${props.className}`}>
-				<div className='grid grid-cols-2'>
+				<div className='grid grid-cols-2 gap-6 p-6'>
 					{products.map((product) => (
 						<ProductCard key={product.handle} product={product} />
 					))}
