@@ -1,15 +1,12 @@
 import Image from "next/image"
 import Product from "../interfaces/IProduct"
+import { priceFormat } from "../utils/numbers"
 
 const ProductCard = ({product} : {product: Product}) => {
 
-    const priceFormat = (price: number) => {
-        return price.toLocaleString("da-DK")
-    }
-
     return (
         <div className="p-4">
-            <div className="relative aspect-square">
+            <div className="relative aspect-square mb-2">
                 <Image src={`/data/images/${product.handle}.png`} objectFit="cover" layout="fill"/>
             </div>
             <h3 className="font-heading text-theme-body text-sm h-10">{product.title.length > 30 ? `${product.title.slice(0,30)}...` : product.title}</h3>
