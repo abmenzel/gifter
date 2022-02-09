@@ -11,7 +11,7 @@ const ProductCard = ({product} : {product: Product}) => {
             </div>
             <h3 className="font-heading text-theme-body text-sm h-10">{product.title.length > 30 ? `${product.title.slice(0,30)}...` : product.title}</h3>
             <p className="text-sm">{product.categories[product.categories.length - 1]}</p>
-            <p className="text-sm">Set til {priceFormat(product.price)},-</p>
+            <p className="text-sm">Set til {priceFormat(product.price)} kr.</p>
         </div>
     )
 }

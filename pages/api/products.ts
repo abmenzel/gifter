@@ -3,40 +3,31 @@ import path from 'path'
 import fs from 'fs'
 import Product from '../../interfaces/IProduct'
 import Filter from '../../interfaces/IFilter'
-
-const shuffle = (arr: any[]) => {
-	let currentIndex = arr.length,
-		randomIndex
-	while (currentIndex != 0) {
-		randomIndex = Math.floor(Math.random() * currentIndex)
-		currentIndex--
-		;[arr[currentIndex], arr[randomIndex]] = [
-			arr[randomIndex],
-			arr[currentIndex],
-		]
-	}
-	return arr
-}
+import shuffle from '../../utils/shuffle'
 
 const selectProducts = (
 	arr: Map<string, Product>,
 	filter: Filter
 ): Product[] => {
 	const randomHandles: string[] = shuffle(Array.from(arr.keys()))
+	console.log(filter)
 	const selected: Product[] = randomHandles
 		.filter((handle) => {
 			const product = arr.get(handle) as Product
 			const withinPriceRange =
-				product.price >= filter.price_min &&
-				product.price <= filter.price_max
+				(product.price >= filter.price_min &&
+					filter.price_max == 2000) ||
+				(product.price >= filter.price_min &&
+					product.price <= filter.price_max)
 			const withinCategories =
 				filter.categories.length === 0 ||
-				filter.categories.includes(product.categories[0])
+				product.categories.some((category) =>
+					filter.categories.includes(category)
+				)
 			return withinPriceRange && withinCategories
-		})
-		.slice(0, filter.limit)
+		})	
 		.map((handle) => arr.get(handle) as Product)
-	return selected
+	return filter.limit == -1 ? selected : selected.slice(0, filter.limit)
 }
 
 export default function handler(
@@ -56,6 +47,7 @@ export default function handler(
 				? parseInt(req.query.price_max as string)
 				: 1_000_000,
 		}
+		console.log(req.query.categories)
 
 		const file = path.resolve('./public', 'data/products.json')
 		const product_json = JSON.parse(fs.readFileSync(file).toString())

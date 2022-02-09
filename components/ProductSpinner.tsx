@@ -22,6 +22,7 @@ const ProductSpinner = (props: any) => {
 		categories: [],
 	})
 	const [range, setRange] = useState([filter.price_min, filter.price_max])
+	const [categories, setCategories] = useState<string[]>([])
 
 	const handleReturn = () => {
 		const prev = [...productsStack].pop() as Product[]
@@ -29,7 +30,7 @@ const ProductSpinner = (props: any) => {
 		setProductsStack((stack) => [...stack].slice(0, stack.length - 1))
 	}
 
-	const findProducts = async (saveStack: boolean = true) => {
+	const findProducts = async () => {
 		setLoading(true)
 		const response = await fetch(`/api/products?${serialize(filter)}`)
 		const products = await response.json()
@@ -45,7 +46,7 @@ const ProductSpinner = (props: any) => {
 	}
 
 	useEffect(() => {
-		findProducts(false)
+		findProducts()
 	}, [])
 
 	useEffect(() => {
@@ -57,11 +58,13 @@ const ProductSpinner = (props: any) => {
 			...prev,
 			price_min: range[0],
 			price_max: range[1],
+			categories: categories
 		}))
-	}, [range])
+	}, [range, categories])
 
 	useEffect(() => {
 		setSpins(0)
+		console.log(filter)
 	}, [filter])
 
 	return (
@@ -71,6 +74,7 @@ const ProductSpinner = (props: any) => {
 				setOpen={setFilterOpen}
 				range={range}
 				setRange={setRange}
+				setCategories={setCategories}
 			/>
 			<div
 				className={`flex flex-col h-full justify-between ${props.className}`}>
