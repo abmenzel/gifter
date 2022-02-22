@@ -1,5 +1,8 @@
 {
 	"functions": {
+        "pages/api/test.ts": {
+			"includeFiles": "public/data**"
+		},
 		"pages/api/products.ts": {
 			"includeFiles": "public/data**"
 		}

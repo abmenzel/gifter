@@ -1,7 +1,13 @@
 
 export async function getStaticProps({ params }) {
     const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api/test' : 'https://gavemanden.vercel.app/api/test'
-    const res = await fetch(url)
+    const config = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const res = await fetch(url, config)
     const data = await res.json()
     return {
       props: {
