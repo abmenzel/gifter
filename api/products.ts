@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import path from 'path'
 import fs from 'fs'
-import Product from '../../interfaces/IProduct'
-import Filter from '../../interfaces/IFilter'
-import shuffle from '../../utils/shuffle'
+import Product from '../interfaces/IProduct'
+import Filter from '../interfaces/IFilter'
+import shuffle from '../utils/shuffle'
 
 const selectProducts = (
 	arr: Map<string, Product>,
