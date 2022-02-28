@@ -20,7 +20,7 @@ export async function getStaticProps({ params }) {
     const data = await getData(params.id)
     return {
       props: {
-        data
+        data: data ? data : null
       }
     }
   }
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 
 const Page = ({data}) => {
     return (
-        <div>{data.text}</div>
+        <div>{data?.text}</div>
     )
 }
 
