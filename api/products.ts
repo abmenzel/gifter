@@ -46,7 +46,7 @@ export default function handler(
 				? parseInt(req.query.price_max as string)
 				: 1_000_000,
 		}
-		const data = fs.readFileSync(join(__dirname, '..', 'data', 'products.json')).toString()
+		const data = fs.readFileSync(join(__dirname, '..', 'public', 'data', 'products.json')).toString()
 		const product_json = JSON.parse(data)
 		const products: Map<string, Product> = new Map(
 			Object.entries(product_json)
