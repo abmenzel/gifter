@@ -13,10 +13,11 @@ const getData = async (id) => {
 }
 
 export async function getStaticProps({ params }) {
-    const data = await getData(params.id)
+    //const data = await getData(params.id)
     return {
       props: {
-        data
+          "handle": "vercel-test",
+          "text": "Vercel test" 
       }
     }
   }
