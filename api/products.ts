@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import path from 'path'
+import path, { join } from 'path'
 import fs from 'fs'
 import Product from '../interfaces/IProduct'
 import Filter from '../interfaces/IFilter'
@@ -46,8 +46,8 @@ export default function handler(
 				? parseInt(req.query.price_max as string)
 				: 1_000_000,
 		}
-		const file = process.cwd() + '/public/data/products.json'
-		const product_json = JSON.parse(fs.readFileSync(file).toString())
+		const data = fs.readFileSync(join(__dirname, '..', 'data', 'products.json')).toString()
+		const product_json = JSON.parse(data)
 		const products: Map<string, Product> = new Map(
 			Object.entries(product_json)
 		)
