@@ -10,7 +10,6 @@ const selectProducts = (
 	filter: Filter
 ): Product[] => {
 	const randomHandles: string[] = shuffle(Array.from(arr.keys()))
-	console.log(filter)
 	const selected: Product[] = randomHandles
 		.filter((handle) => {
 			const product = arr.get(handle) as Product
@@ -47,9 +46,7 @@ export default function handler(
 				? parseInt(req.query.price_max as string)
 				: 1_000_000,
 		}
-		console.log(req.query.categories)
-
-		const file = path.resolve('./public', 'data/products.json')
+		const file = process.cwd() + '/public/data/products.json'
 		const product_json = JSON.parse(fs.readFileSync(file).toString())
 		const products: Map<string, Product> = new Map(
 			Object.entries(product_json)
