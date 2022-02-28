@@ -1,7 +1,7 @@
 {
 	"functions": {
 		"api/products.ts": {
-			"includeFiles": "data/**/*"
+			"includeFiles": "public/data/**/*"
 		}
 	}
 }
