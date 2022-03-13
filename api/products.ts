@@ -53,7 +53,7 @@ export default function handler(
 		)
 
 		const selectedProducts = selectProducts(products, filter)
-
+		
 		res.status(200).json(selectedProducts)
 	} catch (error: any) {
 		res.status(500).json({ error: error.message })

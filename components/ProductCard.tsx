@@ -5,7 +5,7 @@ import { priceFormat } from "../utils/numbers"
 const ProductCard = ({product} : {product: Product}) => {
 
     return (
-        <div className="">
+        <div className="opacity-0 animate-fade-suspsene">
             <div className="relative aspect-square mb-2">
                 <Image src={`/data/images/${product.handle}.png`} objectFit="cover" layout="fill"/>
             </div>

@@ -58,7 +58,7 @@ const ProductSpinner = (props: any) => {
 			...prev,
 			price_min: range[0],
 			price_max: range[1],
-			categories: categories
+			categories: categories,
 		}))
 	}, [range, categories])
 
@@ -77,12 +77,21 @@ const ProductSpinner = (props: any) => {
 				setCategories={setCategories}
 			/>
 			<div
-				className={`flex flex-col h-full justify-between ${props.className}`}>
+				className={`flex flex-col h-full mb-20 justify-between ${props.className}`}>
+				{loading ? (
+					<div className="h-80 flex flex-col items-center justify-center">
+						<svg className="spinner w-8 h-8 text-theme-body" aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+							<circle className="path text-theme-body stroke-current" fill="none" strokeWidth="6" cx="33" cy="33" r="30"></circle>
+						</svg>
+					</div>
+				) : (
 				<div className='grid grid-cols-2 gap-6 p-6'>
 					{products.map((product) => (
 						<ProductCard key={product.handle} product={product} />
 					))}
 				</div>
+				)}
+
 				<div className='p-4 fixed bottom-0 w-full grid grid-cols-8'>
 					<div className='col-span-2 flex items-center justify-center'>
 						{productsStack.length != 0 && (

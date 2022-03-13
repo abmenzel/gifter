@@ -18,7 +18,7 @@ const Button = ({
             onAnimationEnd={() => setTapped(false)}
 			onClick={() => setTapped(true)}>
 			<button
-				className={`scale-100 outline-none rounded-full px-8 py-4 bg-theme-primary font-bold text-white text-center block ${innerClass}`}
+				className={`scale-100 outline-none rounded-full px-6 py-4 bg-theme-primary font-bold text-white text-center block ${innerClass}`}
 				onClick={onClick}>
 				{children}
 			</button>
